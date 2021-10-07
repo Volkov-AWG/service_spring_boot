@@ -27,7 +27,7 @@ jobs:
         run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
         
       - name: Docker spring boot container
-        run: docker run --name my_microservice -p 8080:8080 --net=internal_net --ip=10.10.0.3  springio/gs-spring-boot-docker
+        run: docker run --name my_microservice -p 8080:8080 --net=test_net --ip=10.10.0.3  springio/gs-spring-boot-docker
       
       - name: Get info about docker net
         run: docker network inspect test_net
