@@ -7,16 +7,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
       - name: Copy repository to container
         uses: actions/checkout@v1
+        
       - name: build project to jar
         run: mvn -B clean package -DskipTests
+        
       - name: Log current directory 
         run: ls
+        
       - name: Upload jar to tmp share
         uses: actions/upload-artifact@v2
         with:
           name: jarfile
           path: target/demo-0.0.1-SNAPSHOT.jar
-      - name: Run jar
-        run: java -jar target/demo-0.0.1-SNAPSHOT.jar
+          
+      - name: Create docker net
+        run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
+        
+      - name: Docker spring boot container
+        run: docker run --name my_microservice -p 8080:8080 --net=internal_net --ip=10.10.0.3  springio/gs-spring-boot-docker
+      
+      - name: Get info about docker net
+        run: docker network inspect test_net
