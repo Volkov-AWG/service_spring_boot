@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      volumes:
+      - /workspace:/github/workspace
     steps:
       - uses: actions/checkout@v1
       - name: set up JDK 11
@@ -14,4 +17,4 @@ jobs:
           java-version: 1.11
       - name: Maven Package
         run: mvn -B clean package -DskipTests
-      - run: ls target
+      - run: ls
