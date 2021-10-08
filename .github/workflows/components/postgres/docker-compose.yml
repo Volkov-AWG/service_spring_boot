@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+      PGDATA: /data/postgres
+    ports:
+      - "5432"
+    networks:
+      test_net:
+        ipv4_address: "10.10.0.12"
+
+networks:
+  test_net:
+    name: test_net
+
+volumes:
+  postgres:

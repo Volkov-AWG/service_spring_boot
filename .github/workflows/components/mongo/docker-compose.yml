@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+
+  mongo:
+    container_name: mongo_conteiner
+    image: mongo:4.0.21-xenial
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017"
+    networks:
+      test_net:
+        ipv4_address: "10.10.0.11"
+
+networks:
+  test_net:
+    name: test_net
+
+volumes:
+  mongo:

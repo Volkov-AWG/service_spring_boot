@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  mountebank:
+    container_name: mountebank_container
+    image: jkris/mountebank:latest
+    restart: always
+    volumes:
+      - ./imposters:/imposters
+    ports:
+      - 2525:2525
+      - 8090:8090
+    networks:
+      test_net:
+        ipv4_address: "10.10.0.15"
+
+networks:
+  test_net:
+    name: test_net
+
+volumes:
+  mountebank:
